@@ -1,2 +1,6 @@
 # studio-project
-studio project log 
+## Studio Project Log
+This is where I will be recording my progress/ experiments for my studio project
+
+## 
+
