@@ -349,6 +349,9 @@ ball is lost:
 
 <img width="307" alt="balllost" src="https://github.com/user-attachments/assets/c483e2c1-faa6-4009-a287-6eac02774be3" />
 
+## Going forward:
+- polish my functions
+- develop visually 
 
 
 
