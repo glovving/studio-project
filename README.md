@@ -113,7 +113,7 @@ I have modified the value name in the pet() classes constructor from hunger to f
 Currently the feed function has 5 different responses:
 
 **1) calling end() function**
-Like the play() function, I have added a if statement in the beginning to check the number of strikes, if the user has accrued 3 strikes the end() function is called:
+I added an if statement in the beginning to check the number of strikes, if the user has accrued 3 strikes the end() function is called:
 ```
   feed(){
 
@@ -129,6 +129,19 @@ Currently I have a text response which looked like this:
 
 <img width="337" alt="feedtaken" src="https://github.com/user-attachments/assets/59a3cf6a-709a-4b2d-a83e-c6a13ceafcd2" />
 
+I have also added a call to the end() function within the play() function for safety.
+
+```
+ play(){
+    let rand_int = floor(random(1, 11));
+
+    // 3 strikes and out
+    if(this.strikes > 2){
+      this.end();
+      return;
+    }
+```
+
 **2) pet is hungry**
 if your pets fullness value reaches 0 or below:
 
@@ -139,6 +152,14 @@ if your pets fullness value reaches 0 or below:
     }
 ```
 
+The user will be warned, and a strike is added:
+
+<img width="329" alt="feedhungry" src="https://github.com/user-attachments/assets/2ed7b993-9bb2-4315-9c3f-f2b444fcabb1" />
+
+The pets fullness level decreases by using my newly added [hunger_regen()](##-hunger_regen()-Function:) function
+
+
+## hunger_regen() Function:
 
 
    if(this.fullness < 5){
