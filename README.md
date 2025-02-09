@@ -269,7 +269,87 @@ The overfed function hides the feed button for a period of time when called, it 
   }
 ```
 
-## tricks() function
+## perform_tricks(str) function:
+This is a new function I have added, it is called whenever the user selects a value from a Select menu I have added.
+
+<img width="358" alt="selectmenu" src="https://github.com/user-attachments/assets/a12242f7-5a66-43f0-a4de-ed71972b90a2" />
+
+The 5 trick options are stored in an array, I also have a corresponding array below which stores the text that is displayed when the different options are selected.
+```
+//set up inside setup() function, initialized globally
+//array of tricks
+  trick_array = ['sit', 'shake', 'bark', 'roll', 'fetch'];
+  //array of responses to tricks;
+  trick_response = ['your pet sat down.', 'your pet shook your hand.', 'your pet barked', 'your pet rolled', 'your pet fetched the ball.', 'your pet lost the ball.'];
+ for(let x = 0; x< trick_array.length; x++){
+    select_trick.option(trick_array[x]);}
+```
+
+Using a .changed function I call the perform_tricks(str)  function using the selected trick
+```
+select_trick.changed(() => {
+      let selectedTrick = select_trick.value(str);
+      mypet.perform_trick(selectedTrick);
+    });  
+```
+
+Within the perform_tricks function: 
+- the function begins with a check that we have not recieved 3 strikes yet.
+- each case other than 'fetch' will simply assign a string variable to the displaytext varible of the pet object,
+
+```
+   perform_trick(mytrick){
+   this.showtext = true;
+    if(this.strikes >= 3){
+      this.displaytext += "your pet cannot perform tricks anymore.";
+    }
+
+    switch (mytrick){
+      case 'sit':
+      this.displaytext = trick_response[0];
+      break;
+  
+      case 'shake':
+        this.displaytext = trick_response[1];
+        break;
+        
+       ...
+        
+     case 'fetch':
+      this.displaytext = this.fetch();
+      break;
+          
+    }
+   }
+```
+- In the case of 'fetch' a function called [fetch()](###fetch-Function) is called.
+
+### fetch() Function:
+This function generates a random number from 0 to 3 (0, 1, or 2), then depending on the %2 value it will return either the 5th or 6th item in the response array.
+
+```
+fetch(){
+    let rand_int = floor(random(0, 4));
+    if(rand_int%2 === 0){
+      return trick_response[4];
+    }
+    return trick_response[5];
+
+  }
+```
+
+There is 1/3 chance that the ball will be 'lost'.
+**response 1:**
+ball is fetched:
+
+<img width="284" alt="ballfetch" src="https://github.com/user-attachments/assets/19e5c572-52af-4ccb-8793-57be13bd2bda" />
+
+**response 2**
+ball is lost:
+
+<img width="307" alt="balllost" src="https://github.com/user-attachments/assets/c483e2c1-faa6-4009-a287-6eac02774be3" />
+
+
 
 
   
