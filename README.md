@@ -3,6 +3,7 @@
 This is where I will be recording my progress/ experiments for my studio project
 
 ## Log 1
+Log 1 is an account of how I began writing my cord, please look to later logs for detailed explanations of actual functionality.
 ### Plan:
 - Start writing a pet simulator
 - Pet object with functions
@@ -156,35 +157,121 @@ The user will be warned, and a strike is added:
 
 <img width="329" alt="feedhungry" src="https://github.com/user-attachments/assets/2ed7b993-9bb2-4315-9c3f-f2b444fcabb1" />
 
-The pets fullness level decreases by using my newly added [hunger_regen()](##-hunger_regen()-Function:) function
+The pets fullness level decreases by using my newly added [hunger_regen()](##hunger-regen-and-health-regen-Function) function.
 
+**3) fullness below 5**
+If the pets fullness level is between 1 and 5, the user will recieve a postive reactive:
 
-## hunger_regen() Function:
-
-
+```
    if(this.fullness < 5){
     this.fullness += 1;
     this.showtext = true;
     this.displaytext = 'your pet has enjoyed eating.';
    }
+
+```
+
+<img width="332" alt="feed1" src="https://github.com/user-attachments/assets/4b4d5766-e0f7-4c08-ac7b-f9188722563f" />
+
+**4) fullness between 5 and 10**
+if the pets fullness is above 5 and below 10 the user will be warned that they should stop feeding the pet:
+```
    else{
     if(this.fullness < 10){
       this.fullness += 1;
       this.showtext = true;
       this.displaytext = 'your pet is getting too full.';
     }
+
+```
+<img width="310" alt="feed2" src="https://github.com/user-attachments/assets/93390ff9-580b-4b17-82c3-f9c3bbc7e33b" />
+
+**5) pet is overfed**
+when the pets fullness reaches 10 the [overfed()](##overfed-Function) function is called
+```
     else{
       this.overfed();
     }
    }
- 
+```
+   
+<img width="350" alt="feed4" src="https://github.com/user-attachments/assets/12b42d7d-6608-4101-8615-fd0ad1a9cdf6" />
 
+The user recieved a negative reaction and accrues a strike
+
+**6) setTimeout() for text
+I added a setTimout function which interacts with the pet objects showtext value (initialized to true).
+```
     setTimeout(() => {
       this.showtext = false; 
     }, 5000);
   }
 
 ```
+This value is checked within the draw() function to display text, as you can see above I have set a 5 second limit for text to be displayed, after this time has passed the showtext value toggles to false and the text is cleared.
+This piece of code has also been added to my play() function.
+
+## hunger_regen() and health_regen() Function:
+These are two functions I have added to my pet() class, they are constantly being checked within the object constructor:
+```
+class pet{
+  constructor(){
+...
+    //calling auto health regeneration and fullness degeneration functions
+    this.health_regen();
+    this.hunger_regen();
+...   
+}
+```
+Having calls to these functions within the constructor allows the website to constantly update these functions, meaning the pets health and hunger level will be affected by the passing of time, and not playing with/ feeding your pet can have different consequences
+
+**health_regen()**
+This function allows the health value to regenerate over time
+```
+  health_regen(){
+    setInterval(() =>{
+      if(this.health < 5){
+        this.health += 1;
+      }
+    }, 3000)
+  }
+```
+
+**hunger_regen()**
+This function subtracts from the fullness value over time, meaning that the player must consistently feed their pet in order to avoid strikes
+```
+  hunger_regen(){
+    setInterval(() => {
+      if(this.fullness > 0){
+        this.fullness -= 1;
+      }
+    }, 8000)
+  }
+```
+
+## overfed() Function:
+The overfed function hides the feed button for a period of time when called, it also adds a strike
+```
+  overfed(){
+    textSize(15);
+    this.showtext = true;
+    this.displaytext = "your pet is sick due to over eating.";
+
+    // adding strikes
+    this.strikes += 1;
+
+    // feed button in time out
+    feedbutton.hide()
+    setTimeout(() => {
+      feedbutton.show();
+    }, 4000);
+
+  }
+```
+
+## tricks() function
+
+
   
 
 
