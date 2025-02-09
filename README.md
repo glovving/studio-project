@@ -350,6 +350,8 @@ ball is lost:
 <img width="307" alt="balllost" src="https://github.com/user-attachments/assets/c483e2c1-faa6-4009-a287-6eac02774be3" />
 
 ## Going forward:
+Now that I am decently happy with the level of functionality my pet game has I want to focus on developing it visually
+
 - polish my functions
 - develop visually 
 
