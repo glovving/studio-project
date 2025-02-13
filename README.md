@@ -4,6 +4,43 @@ This is where I will be recording my progress/ experiments for my studio project
 
 ## Log 1
 Log 1 is an account of how I began writing my cord, please look to later logs for detailed explanations of actual functionality.
+
+### Projecxt theme +  Research
+After looking over some different artists and written material provided in the reading list I have decided on the theme of interactivity to centre my work around.
+
+**Project Theme: Interactivity**
+
+After looking over some readings I decided on Interactivity as my project theme.
+I chose this theme because I think user interaction/ contribution is a unique quality of web - based art that I wanted to explore.
+Most things on the internet are assumed to be tools designed for servicing the user (e.g. social media, games, search engines), while artworks are usually thought of as objects/ instances created by an individual artist to serve an individual vision.
+
+User interactivity is something I tried to incorporate into many of my workshop tasks, I always felt that because they are presented as websites they should fulfil the expectation of a website.
+For example, with my workshop 7 simulation task I added a feature where the user was able to stop parts of the simulation by clicking the screen. 
+I didn’t plan on doing this but I was compelled to add this feature because of the fact that it was a website.
+
+An artwork that comes to mind is Olia Lialinas ‘My boyfriend came back from the war’
+
+### Generating ideas ###
+<img src="https://github.com/user-attachments/assets/3038f595-5982-4706-b7ae-b60bb4f6996b" width="300" />
+
+My initial idea for my project was to create a simulated environment with many different objects, each having their own schedules and behaviours, which the user would be able to interact with.
+
+I was thinking about virtual aquarium mobile games.
+
+From that idea I decided that I wanted to base my project around the idea of a virtual pet game.
+
+<img src="https://github.com/user-attachments/assets/2857eeab-04a9-4709-86d1-2bdd9003d774" width="300" />
+
+I had a few different ideas for different direction I could take this:
+
+- Game where user is able to press buttons with no response
+- Hidden pet simulator: the pet will react to user inputs but it is hidden by a black box
+- Annoying pet simulator: random function is called whenever the user presses a button
+
+<img src="https://github.com/user-attachments/assets/95bf11bd-8776-4e8a-970a-02d199e4bf8e" width="300" />
+
+From these sketches I decided to just start writing a simple pet simulator and to incorporate more ideas along the line.
+
 ### Plan:
 - Start writing a pet simulator
 - Pet object with functions
@@ -100,6 +137,9 @@ class pet{
   - add tricks function?
  
 ## Log 2:
+During this session I was still focused on building upon and editing the core functions of my code.
+So far my project does not look very visually interesting and does not really look like a game at all but that is something I wanted to begin working on after I felt confident that my code was working well.
+
 Continuing from last time I:
 - finished feed() function
 - added an overfed() function
@@ -353,9 +393,15 @@ ball is lost:
 Now that I am decently happy with the level of functionality my pet game has I want to focus on developing it visually
 
 - polish my functions
-- develop visually 
+- develop visually
+- decide what direction I want the artwork to go in.
 
-
+## Log 3 ##
+After some thinking I was able to decided on what I wanted my end product to look like.
+I wanted to incorporate a few different aspects of the different pet game ideas I had come up with in the beginning.
+After some reflection on Olia Lialinas piece - My boyfriend came back from the war (which I wrote about for my contextual research) I decided that I wanted my artwork to also able an interactive but linear story with a clear end point.
+I really like the linearity of Lialinas artwork, while this aspect of her work can be seen as a result of the internets newness, I think incorporating this into an artwork in 2025 would come off as a lot more deliberate. 
+I guess this is a development of my 'annoying pet simulator idea'.
 
   
 
