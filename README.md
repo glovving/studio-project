@@ -3,7 +3,7 @@
 This is where I will be recording my progress/ experiments for my studio project
 
 ## Log 1
-Log 1 is an account of how I began writing my cord, please look to later logs for detailed explanations of actual functionality.
+Log 1 is an account of how I began writing my code, please look to later logs for detailed explanations of actual functionality.
 
 ### Project theme +  Research
 After looking over some different artists and written material provided in the reading list I have decided on the theme of interactivity to centre my work around.
