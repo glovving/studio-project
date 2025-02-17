@@ -592,3 +592,281 @@ This is what my pet game currently looks like:
 - trigger different events (pet game, background, end, etc.)
 - Add audio
 
+# Log 4
+I assembled all the 'pieces' of the website I have made so far, I also added some extra bits and made new a new sprite animation.
+
+## Contents
+[end() function](##end-function)
+[background drawing and pet chase](##Background-drawing-and-pet-chase)
+
+## Background drawing and pet chase
+For the pet chase I mentioned in the last log I added my bg class code that I wrote last log into my pet game file.
+
+To make it work I:
+- created a global mybg varible which is a bg class object
+- added a global boolean variable drawbg set to false
+  - When the [end](##end-function) function is called drawbg is set to true
+- within my main draw() function I check the state of drawbg by using an if - else statement
+
+While drawbg is false the pet game is 'on', below you can see that I have a white background refreshing and my pet display text.
+ ```
+if(!drawbg){
+background("white");
+if(mypet.showtext){
+  
+  textSize(windowWidth/50);
+  fill("grey");
+  text(mypet.displaytext, windowWidth/4, windowHeight/6 + (windowWidth/50 * 2) );
+  textSize(windowWidth/45);
+}
+}
+```
+
+When it is set to false: the background is removed, instead I have set a frameRate of 20, my bg objects [create_light() and create_bg()](##Background-code) functions are called 20 times a seconds, resulting in an animated, constantly drawing background.
+
+```
+else{
+  frameRate(20);
+
+  //play song2 when bg is drawn
+  if(!song2.isPlaying()){
+    song2.setVolume(0.05);
+    song2.loop();
+  }
+
+
+  mybg.create_light();
+  mybg.create_bg();
+  fill('black');
+  text(catchpet.mytext, windowWidth/4, windowHeight/5);
+  catchpet.text_instr_clear();}
+
+```
+The code for my bg class is copied and pasted from last logs experiment.
+
+### Pet chase
+For my pet chase sequence I wrote a new class called catch_pet_game
+
+It has one default constructor:
+
+```
+class catch_pet_game{
+
+  constructor(){
+//flag to show text and flag to trigger game to start
+    this.show_text = false;
+    this.game_triggered = false;
+    this.mytext = "your pet can't survive in the wild!\nyou better catch it..";
+
+    
+    //pet sprite drawing vars
+    this.petx = random(10, windowWidth-10);
+    this.pety = random(10, windowHeight-10);
+    this.pet = new this.petsprite(sheet, this.petx, this.pety);
+    this.petWidth = sheet.height * 2;  
+    this.petHeight = sheet.height * 2;
+
+    //flag for drawing pet sprite
+    this.draw_sprite = false;
+
+    //how many time sprite has been clicked
+    this.sprite_clicked = 0;
+
+    //checking how many times sprite has been clicked
+    this.sprite_clicked_limit();
+    
+
+}
+```
+
+```
+  //instructions to user
+  text_instr_clear(){
+    setTimeout(()=>{this.mytext = '';
+    //draw_pet  flag
+    this.draw_sprite = true;
+    }, 5000);  
+    
+  }
+
+```
+
+
+  mousePressed(){
+    this.show_text = true;
+    //pet catch game functionality
+
+    //adding to sprite clicked count if it has been drawn once already
+    if(this.draw_sprite){
+      this.sprite_clicked += 1;
+    
+    
+  let frameWidth = sheet.height; 
+  let frameHeight = sheet.height; 
+
+  //mouse dist from sprite
+  let d = dist(mouseX, mouseY, this.petx + frameWidth / 2, this.pety + frameHeight / 2); 
+
+
+  //making target area larger
+  let target_area = 1.3
+
+  // if mouse click on sprite...
+  if (d < (frameWidth * target_area)) {
+    console.log("Pet caught!");
+
+    this.petx = random(10, windowWidth - 10);
+    this.pety = random(10, windowHeight - 10);
+
+    if(this.petx != windowWidth/4 +frameWidth * target_area && this.pety != windowHeight/5  +frameHeight){
+    //update pos..
+    this.pet.x = this.petx;
+    this.pet.y = this.pety;
+    
+   
+   }
+    else{
+      this.petx = random(10, windowWidth - 10);
+    this.pety = random(10, windowHeight - 10);
+    }
+  }}}
+
+  //adding petsprite inner class 
+  petsprite = class {
+    constructor(sheet, x, y) {
+      this.sheet = sheet;
+      this.scale = 2;
+      this.x = x;
+      this.y = y;
+      this.h = sheet.height;
+      this.frame = 0;
+      this.frames = sheet.width / sheet.height;
+    }
+
+    draw() {
+      imageMode(CENTER);
+      image(this.sheet, this.x, this.y, this.h * this.scale, this.h * this.scale, this.h * floor(this.frame), 0, this.h, this.h);
+      this.frame += 0.07;
+      if (this.frame > this.frames) {
+        this.frame = 0;
+      }
+}}
+
+//function to check how many times pet has been pressed 
+sprite_clicked_limit(){
+  //when countdown is done play song3
+  return this.sprite_clicked <= 10;
+}
+
+//function for when click limit has been reached
+clear_sprite(){
+  if(!this.sprite_clicked_limit()){
+    this.draw_sprite = false;
+    song2.stop();
+    filter(GRAY);
+    textAlign(CENTER);
+    setTimeout(()=>{
+      if(!song3.isPlaying()){
+        song3.setVolume(0.05);
+        song3.loop();
+      }
+      goodbye_screen(dead_pet, windowWidth/2, windowHeight/6);
+    }, 1000);
+    
+  }
+}
+}
+//my dea pet sprite global
+let deadsprite;
+
+function goodbye_screen() {
+  text('Your pet ran away forever...\nit did not like you very much...', windowWidth / 2, windowHeight / 2);
+  deadsprite = new GoodbyeSprite(dead_pet, windowWidth/2, windowHeight/6);
+  draw_deadpet = true;
+  
+}
+
+//function intro screen
+function intro(){
+  text("you got a new pet today,\nit seems to be a bit scared of you...\nit's hiding under a black box...\nyou better convince it to like you...", windowWidth/4, windowHeight/5);
+}
+
+//deadpet sprite class
+class GoodbyeSprite {
+  constructor(sheet, x, y) {
+    this.sheet = sheet;
+    this.scale = 2;
+    this.x = x;
+    this.y = y;
+    this.h = sheet.height;
+    this.frame = 0;
+    this.frames =  sheet.width / this.h;
+  }
+
+  draw() {
+    imageMode(CENTER);
+    image(this.sheet, this.x, this.y, this.h * this.scale, this.h * this.scale, this.h * floor(this.frame), 0, this.h, this.h);
+    this.frame += 0.07;
+    if (this.frame > this.frames) {
+      this.frame = 0;
+    }
+  }
+}
+
+## end function
+Up until log 4 end() has been a simple function that hides my buttons / selection and displays some text:
+
+```
+end(){
+    playbutton.hide();
+    feedbutton.hide();
+    select_trick.hide();
+    this.showtext = true;
+    this.displaytext = "your pet has been taken.";
+  }
+```
+
+During my assembling of all the different elements I have made end() has been expanded quite a bit:
+
+```
+ end(){
+    song1.stop();
+    playbutton.hide();
+    feedbutton.hide();
+    select_trick.hide();
+
+
+    this.drawbox = false;
+
+    //clearing display text
+    this.showtext = true;
+    this.displaytext = 'you have accrued 3 strikes,\nyour pet ran away.';
+
+    setTimeout(()=>{
+      drawbg = true
+      this.clear_text();
+      
+      
+    }, 3500);}
+
+```
+
+When the function is called it sets a string to the display text letting the user know that they have 'lost' the game.
+
+The setTimeout() function calls the clear_text() function after 3.5 seconds, and sets the drawbg varibale to true, triggering the next part of the story.
+
+The clear_text() function is just a simple function within my pet calss object to make sure the display text is completely clear, I made it because I kept having problems with the text reappearing randomly, it is only called once just to be safe.
+
+```
+   clear_text(){
+    //making sure that there is no text by leaving blank
+    this.displaytext = "";
+    this.showtext = false;
+    
+   }
+```
+
+It also changes the drawbox variable to false, clearing the black box.
+
+**Essentially calling the end function clears the canvas of the elements used for my 'pet game'**
+   
