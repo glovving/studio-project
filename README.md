@@ -1,11 +1,11 @@
-<img width="676" alt="image" src="https://github.com/user-attachments/assets/f98a6be0-0b41-49fe-a68c-f06ab7e58e75" /># studio-project
+# studio-project
 ## Studio Project Log
 This is where I will be recording my progress/ experiments for my studio project
 
 ## Log 1
 Log 1 is an account of how I began writing my cord, please look to later logs for detailed explanations of actual functionality.
 
-### Projecxt theme +  Research
+### Project theme +  Research
 After looking over some different artists and written material provided in the reading list I have decided on the theme of interactivity to centre my work around.
 
 **Project Theme: Interactivity**
@@ -595,11 +595,93 @@ This is what my pet game currently looks like:
 # Log 4
 I assembled all the 'pieces' of the website I have made so far, I also added some extra bits and made new a new sprite animation.
 
-## Contents
-[end() function](##end-function)
-[background drawing and pet chase](##Background-drawing-and-pet-chase)
+As of this log I have successfully created a four act structure of sorts with:
+- an introduction screen
+- the pet game
+- a chase sequence as the pet escapes
+- and an end screen, as the user fails to catch the pet.
 
-## Background drawing and pet chase
+## Contents
+[added songs](##Songs-added)
+[end() function](##end-function)
+[background drawing and pet chase](##Background-drawing-for-pet-chase)
+[added intro screen](##Intro-screen)
+
+## Songs added
+I added some songs (belonging to me) to different segments of the work.
+I loaded them in the preload function but I still had audio glitches, as of now they are unresolved but after writing this log I will try to debug them or remove them if I am unable to.
+
+```
+//loading songs
+  song1 = loadSound("Songs/glitchy_out.ogg");
+  song2 = loadSound("Songs/Water_level_out.ogg");
+  song3 = loadSound("Songs/water3_out.ogg");
+```
+
+song1 is played during the pet game, song2 is played during the pet chase sequence, and song3 is played at very end.
+I explain where the songs are played and stopped in the below code as I go along.
+
+## end function
+Up until log 4 end() has been a simple function that hides my buttons / selection and displays some text:
+It is a function of the pet class.
+
+```
+end(){
+    playbutton.hide();
+    feedbutton.hide();
+    select_trick.hide();
+    this.showtext = true;
+    this.displaytext = "your pet has been taken.";
+  }
+```
+
+During my assembling of all the different elements I have made end() has been expanded quite a bit:
+
+```
+ end(){
+    song1.stop();
+    playbutton.hide();
+    feedbutton.hide();
+    select_trick.hide();
+
+
+    this.drawbox = false;
+
+    //clearing display text
+    this.showtext = true;
+    this.displaytext = 'you have accrued 3 strikes,\nyour pet ran away.';
+
+    setTimeout(()=>{
+      drawbg = true
+      this.clear_text();
+      
+      
+    }, 3500);}
+
+```
+
+When the function is called it sets a string to the display text letting the user know that they have 'lost' the game.
+
+It stops the first song, which plays during the pet game from playing, as that segment is over now.
+
+The setTimeout() function calls the clear_text() function after 3.5 seconds, and sets the drawbg varibale to true, triggering the next part of the story.
+
+The clear_text() function is just a simple function within my pet class object to make sure the display text is completely clear, I made it because I kept having problems with the text reappearing randomly, it is only called once just to be safe.
+
+```
+   clear_text(){
+    //making sure that there is no text by leaving blank
+    this.displaytext = "";
+    this.showtext = false;
+    
+   }
+```
+
+It also changes the drawbox variable to false, clearing the black box.
+
+**Essentially calling the end function clears the canvas of the elements used for my 'pet game'**
+
+## Background drawing for pet chase
 For the pet chase I mentioned in the last log I added my bg class code that I wrote last log into my pet game file.
 
 To make it work I:
@@ -624,6 +706,8 @@ if(mypet.showtext){
 
 When it is set to false: the background is removed, instead I have set a frameRate of 20, my bg objects [create_light() and create_bg()](##Background-code) functions are called 20 times a seconds, resulting in an animated, constantly drawing background.
 
+At this point I start playing song2, to fit the start of the second segment of the work.
+
 ```
 else{
   frameRate(20);
@@ -644,7 +728,16 @@ else{
 ```
 The code for my bg class is copied and pasted from last logs experiment.
 
-### Pet chase
+## Pet chase game
+How it works:
+- the user is told to catched the escpaed pet
+- there is a countdown in the corner, the value begins at 10 and decreases everytime the user clicks (catches) the pet
+  - the user is given the impression that once the countdown reaches 0 the pet will be caught
+
+At this point my coding has gotten very messy, I have started to add code whereever is easiest without really keeping the robustness of it in mind, I will try to explain how my game works as well as I can below.
+
+I also ended up editing the sprites I used, and adding more sprites as well, which I will eloborate on [here](###Sprite-changes-and-visual-outline)
+
 For my pet chase sequence I wrote a new class called catch_pet_game
 
 It has one default constructor:
@@ -783,6 +876,7 @@ sprite_clicked_limit(){
 ```
 
 This is important as the main draw() function is calling clear_sprite(), and calling the catch_pet_game class objects (which I have called catchpet) draw() function depending on the value.
+The countdown I mentioned earlier is drawn here, using the sprite_clicked value.
 
 ```
 catchpet.clear_sprite();
@@ -825,19 +919,26 @@ let deadsprite;
 
 function goodbye_screen() {
   text('Your pet ran away forever...\nit did not like you very much...', windowWidth / 2, windowHeight / 2);
-  deadsprite = new GoodbyeSprite(dead_pet, windowWidth/2, windowHeight/6);
   draw_deadpet = true;
   
 }
 ```
 
+the draw_deadpet variable is checked within the main draw() function, which if true, will call the draw() function of an object called mydead_pet, which is of the GoodbyeSprite class, which is explained below.
+While documenting this I can see that I have declared instances of this class object multiple times when it is only needed once, at this point I was just adding to the code as I went along so it is very disorganised and messy, I will clean up the code and update later.
 
-
-//function intro screen
-function intro(){
-  text("you got a new pet today,\nit seems to be a bit scared of you...\nit's hiding under a black box...\nyou better convince it to like you...", windowWidth/4, windowHeight/5);
+```
+if(draw_deadpet){
+  mydead_pet.draw();
 }
+}
+```
 
+The GoodbyeSprite class is basically the exact same as the petsprite class except that it is globally accessible, it uses the same logic to loop through the sprite sheet using its dimensions, and resetting when the end of the sheet has been reached.
+
+The class object I have used to draw the actual sprite is a different sprite sheet but with the same amount of frames and dimensions, I will have a segment explaining some changes I made to my sprite sheets later on.
+
+```
 //deadpet sprite class
 class GoodbyeSprite {
   constructor(sheet, x, y) {
@@ -859,62 +960,84 @@ class GoodbyeSprite {
     }
   }
 }
-
-## end function
-Up until log 4 end() has been a simple function that hides my buttons / selection and displays some text:
-It is a function of the pet class.
-
-```
-end(){
-    playbutton.hide();
-    feedbutton.hide();
-    select_trick.hide();
-    this.showtext = true;
-    this.displaytext = "your pet has been taken.";
-  }
 ```
 
-During my assembling of all the different elements I have made end() has been expanded quite a bit:
+### Sprite changes and visual outline
+
+Here I will record some changes I made to my sprite sheets as well as provide a visual guide to how my pet chase sequence works.
+
+Once the background begins drawing the user is shown a message instructing them to catch the pet.
+
+<img width="400" alt="temptext" src="https://github.com/user-attachments/assets/7b42908e-a8db-4b2a-ac74-f7524c901b90" />
+
+After this message disappears the pet sprite will appear in a random part of the screen as well as the number 10:
+
+<img width="400" alt="pet_fr1" src="https://github.com/user-attachments/assets/8b1ab3e8-b953-4449-b872-034272c1e9fa" />
+
+When the countdown reaches 0 a gray filter is applied and the user is told that their pet ran away forever, above that is an animation of the 'dead' pet.
+
+<img width="312" alt="deadpet" src="https://github.com/user-attachments/assets/32665075-d7e3-4237-bf0a-6927ace2e2db" />
+
+Why did I imply that the pet died? well the text displayed does not suggest it, the user can choose to believe the pet is sleeping or passed out.
+I did it because I think that it is ridiculous that you can abadon virtual pets for a long amount of time and they never die, I wanted the user to feel truly powerless.
+
+After all this was done I draw a new sprite sheet for the pet chasing sequence and replaced it.
+Why? because the original sprite is tried to a post and how can an animal tied to a post run away *with* the post.
+
+Below is what my new sprite looks like, it is just an animal running.
+
+<img width="400" alt="deadpet" src="https://github.com/user-attachments/assets/0f77cb36-d6cc-4482-9ba4-fd9d25fc0a6f" />
+
+And what it looks like in game:
+
+<img width="450" alt="newpetsprite" src="https://github.com/user-attachments/assets/bd47265d-3999-447f-90c3-25f04de8da67" />
+
+
+## Intro screen
+
+<img width="400" alt="newpetsprite" src="https://github.com/user-attachments/assets/6570adf8-987d-44a3-8c66-6c467612fbbf" />
+
+
+My intro() function is another global function, I added this at the very end, this function intorduces the user to what is happening.
 
 ```
- end(){
-    song1.stop();
-    playbutton.hide();
-    feedbutton.hide();
-    select_trick.hide();
-
-
-    this.drawbox = false;
-
-    //clearing display text
-    this.showtext = true;
-    this.displaytext = 'you have accrued 3 strikes,\nyour pet ran away.';
-
-    setTimeout(()=>{
-      drawbg = true
-      this.clear_text();
-      
-      
-    }, 3500);}
+//function intro screen
+function intro(){
+  text("you got a new pet today,\nit seems to be a bit scared of you...\nit's hiding under a black box...\nyou better convince it to like you...", windowWidth/4, windowHeight/5);
+}
 
 ```
 
-When the function is called it sets a string to the display text letting the user know that they have 'lost' the game.
-
-The setTimeout() function calls the clear_text() function after 3.5 seconds, and sets the drawbg varibale to true, triggering the next part of the story.
-
-The clear_text() function is just a simple function within my pet calss object to make sure the display text is completely clear, I made it because I kept having problems with the text reappearing randomly, it is only called once just to be safe.
+The intro segment toggles off by clicking the okay button, which will set a global variable flag called into_flag to false.
 
 ```
-   clear_text(){
-    //making sure that there is no text by leaving blank
-    this.displaytext = "";
-    this.showtext = false;
-    
-   }
+ okaybutton = createButton("okay");
+   okaybutton.position(windowWidth/4, windowHeight/2.5);
+   okaybutton.mouseClicked(()=>{
+    intro_flag = false;
+   })
 ```
 
-It also changes the drawbox variable to false, clearing the black box.
+The intro_flag variable is checked within the main draw function, as you can see intro() is called by default but when the flag is false then the pet game sequence follows etc.
 
-**Essentially calling the end function clears the canvas of the elements used for my 'pet game'**
-   
+```
+if(intro_flag){
+  intro();
+}else{
+
+...
+feedbutton.show();
+playbutton.show();
+select_trick.show(); 
+okaybutton.hide();
+
+if(!drawbg){
+background("white");
+if(mypet.showtext){
+  
+
+```
+
+
+
+
