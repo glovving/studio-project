@@ -5,7 +5,14 @@ This is where I will be recording my progress/ experiments for my studio project
 ## Log 1
 Log 1 is an account of how I began writing my code, please look to later logs for detailed explanations of actual functionality.
 
-### Project theme +  Research
+## Contents:
+- [Project theme and Research](###Project-theme-and-Research)
+- [Generating idead](###Generating-ideas)
+- [Plan](####Plan)
+- [Coding](###Coding)
+- [Functions](###Functions)
+
+### Project theme and Research
 After looking over some different artists and written material provided in the reading list I have decided on the theme of interactivity to centre my work around.
 
 **Project Theme: Interactivity**
@@ -20,7 +27,7 @@ I didn’t plan on doing this but I was compelled to add this feature because of
 
 An artwork that comes to mind is Olia Lialinas ‘My boyfriend came back from the war’
 
-### Generating ideas ###
+### Generating ideas 
 <img src="https://github.com/user-attachments/assets/3038f595-5982-4706-b7ae-b60bb4f6996b" width="300" />
 
 My initial idea for my project was to create a simulated environment with many different objects, each having their own schedules and behaviours, which the user would be able to interact with.
@@ -614,7 +621,7 @@ As of this log I have successfully created a four act structure of sorts with:
 - [end() function](##end-function)
 - [background drawing and pet chase](##Background-drawing-for-pet-chase)
 - [added intro screen](##Intro-screen)
-- [changed pet responses](##Changed pet responses)
+- [changed pet responses](##Changed-pet-responses)
 
 ## Songs added
 I added some songs (belonging to me) to different segments of the work.
