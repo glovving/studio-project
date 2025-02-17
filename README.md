@@ -446,10 +446,149 @@ After the sprite sheet I moved on to creating an animated background for when my
 
 The picture I wanted drawn was a blue sky and field to conrast the very plain, sterile 'game'environment.
 
+### Background code
+I knew that I wanted the colours blue, green, and white for my drawing.
+To find the RGB value bounds I would use I used a colour wheel/picker and recorded it in a note book.
+
+I created a class object called bg, 
+
+```
+class bg{
+  constructor(){
+    this.width = windowWidth;
+    this.height = windowHeight;}
+
+```
+
+It has a default constructor with the variables this.width and this.height.
+
+within the bg class I wrote the create_bg() function.
+
+```
+create_bg(){
+    this.boundary = this.height - this.height/3;
+
+    //max and min rgb vals
+    this.max_r = 150;
+    this.max_g = 223;
+    this.max_b = 249;
+    this.min_r = 41;
+    this.min_g = 126;
+    this.min_b = 199;
+
+    //values for green circles
+    this.start = this.height - this.height/3;
+    //max and min green rgb values
+    this.max_r2 = 211;
+    this.max_g2 = 255;
+    this.max_b2 = 51;
+    this.min_r2 = 9;
+    this.min_g2 = 89;
+    this.min_b2 = 26;
+
+```
+
+this.boundary uses the classes height variable as a reference to find where I want the division between the sky (blue) and ground (green) to be.
+the function also contains the maximum and minumum rgb values for those colours.
+
+Within the for-loop below 2 sets of random x  + y coordinates and sizes are generated each iteration, I have set the numer of iterations to 50 which I believe means that frame draws 50 circles.
+
+```
+    //creating each blue ellipse
+    for(let x = 0; x< 50; x++){
+      //coordinates
+      let r_x = random(0, windowWidth);
+      let r_y = random(0, this.boundary);
+      let r_size = random(50, 150);
+
+      //coords for green
+      let r_x2 = random(0, windowWidth);
+      let r_y2 = random(this.start, windowHeight);
+      let r_size2 = random(10, 100);
 
 
-  
+      noStroke();
+      
+      fill(random(this.min_r, this.max_r), random(this.min_g, this.max_g), random(this.min_b, this.max_b), 40);
+      ellipse(r_x, r_y, r_size, r_size);
+
+      //green drawing 
+      noStroke();
+      fill(random(this.min_r2, this.max_r2), random(this.min_g2, this.max_g2), random(this.min_b2, this.max_b2), 40);
+      ellipse(r_x2, r_y2, r_size2, r_size2);
+
+      
+   } }
+  ```
+every iteration also generates random rgb values within the scope given for each ellipse.
+When called within the drawing function, this is the picture generated:
+
+<img width="300" alt="nolight" src="https://github.com/user-attachments/assets/cbafb7cf-72f7-45da-a771-49e87a85f85c" />
+
+I also thought about adding clouds to my background but while experimenting I got this result:
+
+<img width="541" alt="trial" src="https://github.com/user-attachments/assets/34a76448-2a54-439a-9054-73253aa39c02" />
+
+I thought the speckles of white light looked very nice and decided to write my function around that
+
+```
+  create_light(){
+    //amount of clouds
+    this.light_count = random(1, 6);
+
+    //rgb limits
+    this.max_r = 250;
+    this.max_g = 250;
+    this.max_b = 250;
+    this.min_r = 200;
+    this.min_g = 200;
+    this.min_b = 200;
 
 
-    
+    for(let x = 0; x< this.light_count; x++){
+      let r_x = random(0, windowWidth);
+      let r_y = random(0, windowHeight);
+      let r_size = random(5, 20);
+   
+      noStroke();
+      fill(random(this.min_r, this.max_r), random(this.min_g, this.max_g), random(this.min_b, this.max_b), 80);
+      ellipse(r_x, r_y, r_size, r_size);
+
+      }
+
+    }
+```
+
+As you can see a have a much smaller amount of light ellipses drawn (between 1, 6 range) every frame but the logic is the same as my create_bg() function.
+
+This is what my compelted background drawing looks like when both the create_bg() and create_light() function are called inside draw():
+
+<img width="500" alt="finalbg" src="https://github.com/user-attachments/assets/19042619-1d37-4c26-98cd-3950d5bf7d0d" />
+
+## Black box
+Returning to my pet game I wrote a function called draw_box() within the pet class.
+
+```
+  draw_box(){
+    if(this.drawbox){
+    let size = windowWidth/4;
+    fill('black');
+    rect(windowWidth/4, ypos, size, size);}
+  }
+
+```
+
+This function is called within the main draw() function with the rectangle being drawn depending on a variable called drawbox.
+the drawbox variable is a boolean variable instatiated within the pet classes contructor, it is set to true as default but turns false when the end() function is called.
+
+This is what my pet game currently looks like:
+
+<img width="300" alt="blackbox" src="https://github.com/user-attachments/assets/d6871280-f382-4ea9-aa44-0e673dddb1b1" />
+
+
+## Further plans:
+
+- Incorporate my sprite animation and bg code into my pet game code
+- trigger different events (pet game, background, end, etc.)
+- Add audio
 
