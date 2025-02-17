@@ -399,10 +399,12 @@ Now that I am decently happy with the level of functionality my pet game has I w
 # Log 3:
 
 After some thinking I was able to decided on what I wanted my end product to look like.
+I guess this is a development of my 'annoying pet simulator idea'.
+
 I wanted to incorporate a few different aspects of the different pet game ideas I had come up with in the beginning.
 After some reflection on Olia Lialinas piece - My boyfriend came back from the war (which I wrote about for my contextual research) I decided that I wanted my artwork to also be an interactive but linear story with a clear end point.
 I really like the linearity of Lialinas artwork and the futility of user interaction, while this aspect of her work can be seen as a result of the internets newness I personally was struck by the level of agency I was given vs the level of agency I have come to assume I had, especially as I immediately assosiated the illustrative design + frames of her website with video games. 
-I guess this is a development of my 'annoying pet simulator idea'.
+
 
 ## My plan for the website:
 Here is my (mostly) concrete plan for my final project: 
@@ -411,9 +413,9 @@ Here is my (mostly) concrete plan for my final project:
 - The pets health and fullness decrease quickly making it difficult for the user to keep the pet well
   - The pets responses to the user input are hostile
 - The 'game' is visually plain, it does not give the user clear instructions, and the user is not rewarded for their input
-  - Because there are no instructions I am assuming it will be very easy for the 
-
-
+  - Because there are no instructions I am assuming it will be very easy for the user to accrue strikes, calling the end() function
+- When the end function is called the pet will escape into a colourful background
+  - The user must try to catch the pet but will not be able to succeed
 
 ## What I did:
 - [Added a  simple sprite sheet animation](##Sprite-Sheet)
@@ -421,7 +423,28 @@ Here is my (mostly) concrete plan for my final project:
 - [Added a black box to my pet game](##Black-box)
 
 ## Sprite Sheet
-At this point I wasn't sure 
+At this point I knew I wanted to add a sprite animation of some sort so I decided to just try it out and learn how it could be implemented so I could use it later.
+I used this -> (https://www.youtube.com/watch?v=eE65ody9MdI) youtube tutorial.
+
+<img width="500" alt="spritetutorial" src="https://github.com/user-attachments/assets/9199bf07-0582-460f-8649-ef3f59f8f585" />
+
+I wanted to do exactly what was shown in the tutorial so I began with making my sprite sheet using a program called **aesprite** which I had on steam already.
+What I did was use a 100 by 100 pixel canvas, draw three different frames (layers) and then export it as a png sprite sheet with the layers separated.
+Below is the aesprite environment (left) and the sprite sheet (right).
+
+<img width="300" alt="aesprite" src="https://github.com/user-attachments/assets/ecd144f1-e0ca-4ca4-9c17-472a759d25c1" />
+<img width="400" alt="aesprite" src="https://github.com/user-attachments/assets/7ceb185e-d854-48c7-aa9d-e9faab1cb193" />
+
+The animation was successful, and here is what it looked like in vscode:
+
+<img width="541" alt="testingsheetwalk" src="https://github.com/user-attachments/assets/9c269fe1-0e09-44ce-8652-2fd5082516b8" />
+
+## Background
+After the sprite sheet I moved on to creating an animated background for when my pet 'escapes', I wanted it the animation to look like my live camera feed workshop drawing with transparent coloured shapes generating at random coordinates into a soft picture.
+
+<img width="233" alt="livevid" src="https://github.com/user-attachments/assets/62eb8146-7b52-415e-bc08-0319a2ec6be6" />
+
+The picture I wanted drawn was a blue sky and field to conrast the very plain, sterile 'game'environment.
 
 
 
