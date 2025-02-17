@@ -1,4 +1,4 @@
-# studio-project
+<img width="676" alt="image" src="https://github.com/user-attachments/assets/f98a6be0-0b41-49fe-a68c-f06ab7e58e75" /># studio-project
 ## Studio Project Log
 This is where I will be recording my progress/ experiments for my studio project
 
@@ -648,6 +648,7 @@ The code for my bg class is copied and pasted from last logs experiment.
 For my pet chase sequence I wrote a new class called catch_pet_game
 
 It has one default constructor:
+it initialises many default variables that will be referenced in functions and creates a petsprite object called this.pet
 
 ```
 class catch_pet_game{
@@ -678,7 +679,13 @@ class catch_pet_game{
 
 }
 ```
+When this function is called it will display text temporarily, then it will clear the text and set the draw_sprite variable to true.
 
+(image below)
+
+<img width="300" alt="image" src="https://github.com/user-attachments/assets/204c78de-f6c9-4f31-b39e-21558835c41c" />
+
+(code below)
 ```
   //instructions to user
   text_instr_clear(){
@@ -690,12 +697,18 @@ class catch_pet_game{
   }
 
 ```
+The mousepressed function inside of the class sets the show_text variable to true, so once the user gets to this screen it the text is guaranteed to show.
 
-
+```
   mousePressed(){
     this.show_text = true;
     //pet catch game functionality
+```
+It checks if the draw_sprite variable is true, if it is, it will move the x and y coordinates of the petsprite object, drawing it in a different aprt of the screen every time.
+Every time the draw_sprite value is true, it will add 1 to the class sprite_clicked variable, then it will check whether or not the user has clicked within the set boundary of the sprite using the d value.
+If the distance is within a certain area around the frame width of the sprite, it will generate new x and y coordinates and draw the sprite in a new location.
 
+```
     //adding to sprite clicked count if it has been drawn once already
     if(this.draw_sprite){
       this.sprite_clicked += 1;
@@ -711,15 +724,14 @@ class catch_pet_game{
   //making target area larger
   let target_area = 1.3
 
-  // if mouse click on sprite...
+  // if sprite clicked
   if (d < (frameWidth * target_area)) {
-    console.log("Pet caught!");
 
     this.petx = random(10, windowWidth - 10);
     this.pety = random(10, windowHeight - 10);
 
     if(this.petx != windowWidth/4 +frameWidth * target_area && this.pety != windowHeight/5  +frameHeight){
-    //update pos..
+    //update pos
     this.pet.x = this.petx;
     this.pet.y = this.pety;
     
@@ -730,7 +742,14 @@ class catch_pet_game{
     this.pety = random(10, windowHeight - 10);
     }
   }}}
+```
+As you can see I left the area around a certain point empty, generating the coordinates again if I got those values, this is because I added a countdown text in that area that I will get to in a bit.
 
+The petsprite inner class takes the sprite sheet, x, and y, as coordinates.
+I added it's own draw() function so it wouldn't have to rely on the background refreshing (?) to update.
+Every frame the visible area of the sprite sheet is changed until the end it reached, then it resets to 0, looping the animation.
+
+```
   //adding petsprite inner class 
   petsprite = class {
     constructor(sheet, x, y) {
@@ -751,12 +770,32 @@ class catch_pet_game{
         this.frame = 0;
       }
 }}
+```
 
+Here I wrote a function to check how many times the sprite has been clicked, if the sprite has been clicked 10 times then it will return false.
+
+```
 //function to check how many times pet has been pressed 
 sprite_clicked_limit(){
   //when countdown is done play song3
   return this.sprite_clicked <= 10;
 }
+```
+
+This is important as the main draw() function is calling clear_sprite(), and calling the catch_pet_game class objects (which I have called catchpet) draw() function depending on the value.
+
+```
+catchpet.clear_sprite();
+if(catchpet.draw_sprite){
+  catchpet.pet.draw();
+  fill('black');
+  text(`${10 - catchpet.sprite_clicked}`,windowWidth/4, windowHeight/5);
+  
+}
+```
+
+The clear_sprite() function will set the draw_sprite variable to false, meaning no more petsprites will be drawn, then it will stop the 2nd song from playing, as the catching pet segment is over.
+It then applies a grey filter over the entire canvas, then after one second starts playing the 3rd (last) song and calls the goodbye_screen() function.
 
 //function for when click limit has been reached
 clear_sprite(){
@@ -776,6 +815,11 @@ clear_sprite(){
   }
 }
 }
+
+The goodbye_screen function adds some text to the screen, and initialises a GoodbyeSprite() class object called deadsprite.
+It then sets a global variable called draw_deadpet to true.
+
+```
 //my dea pet sprite global
 let deadsprite;
 
@@ -785,6 +829,9 @@ function goodbye_screen() {
   draw_deadpet = true;
   
 }
+```
+
+
 
 //function intro screen
 function intro(){
@@ -815,6 +862,7 @@ class GoodbyeSprite {
 
 ## end function
 Up until log 4 end() has been a simple function that hides my buttons / selection and displays some text:
+It is a function of the pet class.
 
 ```
 end(){
