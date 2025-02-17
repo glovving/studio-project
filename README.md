@@ -197,7 +197,7 @@ The user will be warned, and a strike is added:
 
 <img width="329" alt="feedhungry" src="https://github.com/user-attachments/assets/2ed7b993-9bb2-4315-9c3f-f2b444fcabb1" />
 
-The pets fullness level decreases by using my newly added [hunger_regen()](##hunger-regen-and-health-regen-Function) function.
+The pets fullness level decreases by using my newly added [hunger_regen()](#hungerregen-and-healthregen-function) function.
 
 **3) fullness below 5**
 If the pets fullness level is between 1 and 5, the user will recieve a postive reactive:
