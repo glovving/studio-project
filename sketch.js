@@ -63,8 +63,11 @@ function setup() {
     mypet.feed();
   })
 
+  
+  feedbutton.size(windowWidth/10, windowHeight/20);
+
   playbutton = createButton('play');
-  playbutton.size(40, 20);
+  playbutton.size(windowWidth/10, windowHeight/20);
 
   playbutton.position(xpos, ypos + feedbutton.height * 2);
 
@@ -80,8 +83,12 @@ function setup() {
     
   })
 
+
+
   //adding trick selection
   select_trick = createSelect();
+
+  select_trick.size(windowWidth/10, windowHeight/20);
   
   select_trick.position(xpos, ypos + (feedbutton.height * 2) + (playbutton.height * 3));
 
@@ -101,7 +108,8 @@ function setup() {
 
    //okay button to start game
    okaybutton = createButton("okay");
-   okaybutton.position(windowWidth/4, windowHeight/2.5);
+   okaybutton.size(windowWidth/10, windowHeight/20);
+   okaybutton.position(windowWidth/4, windowHeight/2.5 + okaybutton.height);
    okaybutton.mouseClicked(()=>{
     intro_flag = false;
    })
@@ -154,9 +162,9 @@ if(!drawbg){
 background("white");
 if(mypet.showtext){
   
-  textSize(windowWidth/50)/
+  textSize(windowWidth/50);
   fill("grey");
-  text(mypet.displaytext, windowWidth/4, windowHeight/5);
+  text(mypet.displaytext, windowWidth/4, windowHeight/6 + (windowWidth/50 * 2) );
   textSize(windowWidth/45);
 }
 }
@@ -194,10 +202,13 @@ else{
  //checking pet hunger level
   mypet.check_hunger();
   mypet.draw_box();
-  
+
+  let status_text = `Energy: ${mypet.energy} Fullness: ${mypet.fullness} Strikes: ${mypet.strikes}`;
+  textSize(windowWidth/60);
   //moved trick text into coditional
   text('tricks:', xpos, ypos + (feedbutton.height * 2) + (playbutton.height * 2.5)); 
-  text(`Energy: ${mypet.energy} Fullness: ${mypet.fullness} Strikes: ${mypet.strikes}`, windowWidth/4, windowHeight/6);
+  textSize(windowWidth/50)
+  text(status_text, windowWidth/4, windowHeight/6);
 }
 
 //checking if sprite is to be drawn
@@ -492,9 +503,9 @@ class pet{
   //adding draw box function
   draw_box(){
     if(this.drawbox){
-    let size = windowWidth/4;
+    let size = windowWidth/5;
     fill('black');
-    rect(windowWidth/4, ypos, size, size);}
+    rect(windowWidth/4, ypos + ypos/10, size, size);}
   }
   
 
@@ -730,6 +741,7 @@ function goodbye_screen() {
 
 //function intro screen
 function intro(){
+  textSize(windowWidth/30);
   text("you got a new pet today,\nit seems to be a bit scared of you...\nit's hiding under a black box...\nyou better convince it to like you...", windowWidth/4, windowHeight/5);
 }
 
