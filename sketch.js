@@ -30,10 +30,18 @@ let dead_pet;
 let draw_deadpet = false;
 let mydead_pet;
 
+//adding audio
+let song1, song2, song3;
+
 function preload(){
   //loading sprite sheet
   sheet = loadImage("vis/newpetsprite.png");
   dead_pet = loadImage("vis/deadpet.png");
+
+  //loading songs
+  song1 = loadSound("Songs/glitchy_out.ogg");
+  song2 = loadSound("Songs/Water_level_out.ogg");
+  song3 = loadSound("Songs/water3_out.ogg");
 
   
 }
@@ -69,6 +77,7 @@ function setup() {
   testbutton.position(xpos, ypos + (feedbutton.height * 2) + (playbutton.height * 4));
   testbutton.mouseClicked(()=>{
     mypet.strikes += 3;
+    
   })
 
   //adding trick selection
@@ -119,6 +128,7 @@ function setup() {
 
 }
 
+
 function draw() {
 
 textSize(windowWidth/45);
@@ -127,7 +137,10 @@ textSize(windowWidth/45);
 if(intro_flag){
   intro();
 }else{
-
+if(!song1.isPlaying()){
+  song1.setVolume(0.07);
+  song1.loop();
+}
   //hiding okay button
   okaybutton.hide();  
 
@@ -138,14 +151,23 @@ select_trick.show();
 
 
 if(!drawbg){
-background(220);
+background("white");
 if(mypet.showtext){
-  text(mypet.displaytext, windowWidth/4, windowHeight/5);}
+  
+  textSize(windowWidth/50)/
+  fill("grey");
+  text(mypet.displaytext, windowWidth/4, windowHeight/5);
+  textSize(windowWidth/45);
+}
 }
 else{
   frameRate(20);
-  //else drawing b
 
+  //play song2 when bg is drawn
+  if(!song2.isPlaying()){
+    song2.setVolume(0.05);
+    song2.loop();
+  }
 
 
   mybg.create_light();
@@ -165,6 +187,8 @@ if(!mypet.can_run()){
   
 }
 else{
+  //playing song1 for black box segment
+  
 
   //pet status text moved into else so it updates with interaction
  //checking pet hunger level
@@ -173,7 +197,7 @@ else{
   
   //moved trick text into coditional
   text('tricks:', xpos, ypos + (feedbutton.height * 2) + (playbutton.height * 2.5)); 
-  text(`Health: ${mypet.health} Fullness: ${mypet.fullness} Strikes: ${mypet.strikes}`, windowWidth/4, windowHeight/6);
+  text(`Energy: ${mypet.energy} Fullness: ${mypet.fullness} Strikes: ${mypet.strikes}`, windowWidth/4, windowHeight/6);
 }
 
 //checking if sprite is to be drawn
@@ -203,7 +227,7 @@ class pet{
   constructor(){
     //hunger changed to fullness for accuracy
     this.fullness = 4;
-    this.health = 3;
+    this.energy = 4;
     //tired and exhausted states 
     this.tired = false;
     this.exhausted = false;
@@ -216,7 +240,7 @@ class pet{
     this.strikes = 0;
 
     //calling auto health regeneration and fullness degeneration functions
-    this.health_regen();
+    this.energy_regen();
     this.hunger_regen();
 
     //calling hunger check
@@ -254,7 +278,7 @@ class pet{
         
         this.showtext = true;
         this.displaytext = 'too much play has tired your pet out';
-        this.health -= 3;
+        this.energy -= 3;
       }
       else{
         
@@ -262,16 +286,16 @@ class pet{
         
         if(this.health < 5){
         this.displaytext = 'your pet played reluctantly.';
-        this.health += 1;}
+        this.energy += 1;}
         // health starts decreasing at max valuye
         else{
           this.displaytext = 'you have played with your pet.';
-          this.health -= 1;
+          this.energy -= 1;
         }
       }}
 
     //if health goes below 0, the pet becomes exhausted
-    if(this.health < 0){
+    if(this.energy < 0){
       this.exhausted = true;
       this.exhaustion();
     }
@@ -300,10 +324,10 @@ class pet{
   }
 
   //auto health regeneration
-  health_regen(){
+  energy_regen(){
     setInterval(() =>{
-      if(this.health < 5){
-        this.health += 1;
+      if(this.energy < 5){
+        this.energy += 1;
       }
     }, 3000)
   }
@@ -313,11 +337,12 @@ class pet{
       if(this.fullness > 0){
         this.fullness -= 1;
       }
-    }, 5000)
+    }, 3000)
   }
 
   //when pet is taken 
   end(){
+    song1.stop();
     playbutton.hide();
     feedbutton.hide();
     select_trick.hide();
@@ -573,7 +598,6 @@ class bg{
 class catch_pet_game{
 
   constructor(){
-    this.mouse_press_count = 0;
     this.show_text = false;
     this.game_triggered = false;
     this.mytext = "your pet can't survive in the wild!\nyou better catch it..";
@@ -672,6 +696,7 @@ class catch_pet_game{
 
 //function to check how many times pet has been pressed 
 sprite_clicked_limit(){
+  //when countdown is done play song3
   return this.sprite_clicked <= 10;
 }
 
@@ -679,9 +704,14 @@ sprite_clicked_limit(){
 clear_sprite(){
   if(!this.sprite_clicked_limit()){
     this.draw_sprite = false;
+    song2.stop();
     filter(GRAY);
     textAlign(CENTER);
     setTimeout(()=>{
+      if(!song3.isPlaying()){
+        song3.setVolume(0.05);
+        song3.loop();
+      }
       goodbye_screen(dead_pet, windowWidth/2, windowHeight/6);
     }, 1000);
     
