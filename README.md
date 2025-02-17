@@ -251,7 +251,7 @@ I added a setTimout function which interacts with the pet objects showtext value
 This value is checked within the draw() function to display text, as you can see above I have set a 5 second limit for text to be displayed, after this time has passed the showtext value toggles to false and the text is cleared.
 This piece of code has also been added to my play() function.
 
-## hunger and health regeneration functions:
+## Hunger and Health regeneration functions:
 These are two functions I have added to my pet() class, they are constantly being checked within the object constructor:
 ```
 class pet{
