@@ -403,6 +403,9 @@ After some reflection on Olia Lialinas piece - My boyfriend came back from the w
 I really like the linearity of Lialinas artwork, while this aspect of her work can be seen as a result of the internets newness, I think incorporating this into an artwork in 2025 would come off as a lot more deliberate. 
 I guess this is a development of my 'annoying pet simulator idea'.
 
+### What I did ###
+[Added a  simple sprite sheet animation](###Sprite-Sheet)
+
   
 
 
