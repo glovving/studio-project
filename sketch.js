@@ -503,9 +503,9 @@ class pet{
   //adding draw box function
   draw_box(){
     if(this.drawbox){
-    let size = windowWidth/5;
+    let size = windowWidth/7;
     fill('black');
-    rect(windowWidth/4, ypos + ypos/10, size, size);}
+    rect(windowWidth/3, ypos + ypos/7, size, size);}
   }
   
 
