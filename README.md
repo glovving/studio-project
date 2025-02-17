@@ -149,7 +149,14 @@ Continuing from last time I:
 - different responses to tricks
 - added an end() function, and strike system to end game 
 
-### feed() Function:
+## Contents:
+- [feed function](##feed-function)
+- [hunger and health regeneration](##Hunger-and-Health-regeneration-functions)
+- [overfed function](###overfed-function)
+- [perform tricks function](##perform-tricks-function)
+  
+
+### feed function:
 I have modified the value name in the pet() classes constructor from hunger to fullness to better express what the value represents.
 Currently the feed function has 5 different responses:
 
@@ -227,7 +234,7 @@ if the pets fullness is above 5 and below 10 the user will be warned that they s
 <img width="310" alt="feed2" src="https://github.com/user-attachments/assets/93390ff9-580b-4b17-82c3-f9c3bbc7e33b" />
 
 **5) pet is overfed**
-when the pets fullness reaches 10 the [overfed()](##overfed-Function) function is called
+when the pets fullness reaches 10 the [overfed()](##overfed-function) function is called
 ```
     else{
       this.overfed();
@@ -265,7 +272,7 @@ class pet{
 ```
 Having calls to these functions within the constructor allows the website to constantly update these functions, meaning the pets health and hunger level will be affected by the passing of time, and not playing with/ feeding your pet can have different consequences
 
-### health_regen()**
+### health regeneration
 This function allows the health value to regenerate over time
 ```
   health_regen(){
@@ -277,7 +284,7 @@ This function allows the health value to regenerate over time
   }
 ```
 
-### hunger_regen()**
+### hunger regeneration
 This function subtracts from the fullness value over time, meaning that the player must consistently feed their pet in order to avoid strikes
 ```
   hunger_regen(){
@@ -289,7 +296,7 @@ This function subtracts from the fullness value over time, meaning that the play
   }
 ```
 
-## overfed() Function:
+## overfed function:
 The overfed function hides the feed button for a period of time when called, it also adds a strike
 ```
   overfed(){
@@ -309,7 +316,7 @@ The overfed function hides the feed button for a period of time when called, it 
   }
 ```
 
-## perform_tricks(str) function:
+## perform tricks function:
 This is a new function I have added, it is called whenever the user selects a value from a Select menu I have added.
 
 <img width="358" alt="selectmenu" src="https://github.com/user-attachments/assets/a12242f7-5a66-43f0-a4de-ed71972b90a2" />
@@ -362,9 +369,9 @@ Within the perform_tricks function:
     }
    }
 ```
-- In the case of 'fetch' a function called [fetch()](###fetch-Function) is called.
+- In the case of 'fetch' a function called [fetch()](###fetch-function) is called.
 
-### fetch() Function:
+### fetch function:
 This function generates a random number from 0 to 3 (0, 1, or 2), then depending on the %2 value it will return either the 5th or 6th item in the response array.
 
 ```
@@ -600,12 +607,14 @@ As of this log I have successfully created a four act structure of sorts with:
 - the pet game
 - a chase sequence as the pet escapes
 - and an end screen, as the user fails to catch the pet.
+- I also changed the pets responses to the user to be less positive.
 
 ## Contents
-[added songs](##Songs-added)
-[end() function](##end-function)
-[background drawing and pet chase](##Background-drawing-for-pet-chase)
-[added intro screen](##Intro-screen)
+- [added songs](##Songs-added)
+- [end() function](##end-function)
+- [background drawing and pet chase](##Background-drawing-for-pet-chase)
+- [added intro screen](##Intro-screen)
+- [changed pet responses](##Changed pet responses)
 
 ## Songs added
 I added some songs (belonging to me) to different segments of the work.
@@ -1037,6 +1046,14 @@ if(mypet.showtext){
   
 
 ```
+
+## Changed pet responses
+
+As I established earlier that I wanted to make the responses to user interactive more negative I edited the text responses to fit that tone.
+
+I won't go through every single one of them here but an example is:
+
+"your pet has enjoyed eating" -> "your pet ate reluctantly..."
 
 
 
