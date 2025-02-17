@@ -197,7 +197,7 @@ The user will be warned, and a strike is added:
 
 <img width="329" alt="feedhungry" src="https://github.com/user-attachments/assets/2ed7b993-9bb2-4315-9c3f-f2b444fcabb1" />
 
-The pets fullness level decreases by using my newly added [hunger_regen()](#hungerregen-and-healthregen-function) function.
+The pets fullness level decreases by using my newly added [hunger_regen()](#hungerandhealthregenerationfunctions) function.
 
 **3) fullness below 5**
 If the pets fullness level is between 1 and 5, the user will recieve a postive reactive:
@@ -251,7 +251,7 @@ I added a setTimout function which interacts with the pet objects showtext value
 This value is checked within the draw() function to display text, as you can see above I have set a 5 second limit for text to be displayed, after this time has passed the showtext value toggles to false and the text is cleared.
 This piece of code has also been added to my play() function.
 
-## hunger_regen() and health_regen() Function:
+## hunger and health regeneration functions:
 These are two functions I have added to my pet() class, they are constantly being checked within the object constructor:
 ```
 class pet{
