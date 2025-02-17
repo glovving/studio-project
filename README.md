@@ -136,7 +136,7 @@ class pet{
   - extend pet object functions
   - add tricks function?
  
-## Log 2:
+# Log 2:
 During this session I was still focused on building upon and editing the core functions of my code.
 So far my project does not look very visually interesting and does not really look like a game at all but that is something I wanted to begin working on after I felt confident that my code was working well.
 
@@ -265,7 +265,7 @@ class pet{
 ```
 Having calls to these functions within the constructor allows the website to constantly update these functions, meaning the pets health and hunger level will be affected by the passing of time, and not playing with/ feeding your pet can have different consequences
 
-**health_regen()**
+### health_regen()**
 This function allows the health value to regenerate over time
 ```
   health_regen(){
@@ -277,7 +277,7 @@ This function allows the health value to regenerate over time
   }
 ```
 
-**hunger_regen()**
+### hunger_regen()**
 This function subtracts from the fullness value over time, meaning that the player must consistently feed their pet in order to avoid strikes
 ```
   hunger_regen(){
@@ -396,15 +396,34 @@ Now that I am decently happy with the level of functionality my pet game has I w
 - develop visually
 - decide what direction I want the artwork to go in.
 
-## Log 3 ##
+# Log 3:
+
 After some thinking I was able to decided on what I wanted my end product to look like.
 I wanted to incorporate a few different aspects of the different pet game ideas I had come up with in the beginning.
-After some reflection on Olia Lialinas piece - My boyfriend came back from the war (which I wrote about for my contextual research) I decided that I wanted my artwork to also able an interactive but linear story with a clear end point.
-I really like the linearity of Lialinas artwork, while this aspect of her work can be seen as a result of the internets newness, I think incorporating this into an artwork in 2025 would come off as a lot more deliberate. 
+After some reflection on Olia Lialinas piece - My boyfriend came back from the war (which I wrote about for my contextual research) I decided that I wanted my artwork to also be an interactive but linear story with a clear end point.
+I really like the linearity of Lialinas artwork and the futility of user interaction, while this aspect of her work can be seen as a result of the internets newness I personally was struck by the level of agency I was given vs the level of agency I have come to assume I had, especially as I immediately assosiated the illustrative design + frames of her website with video games. 
 I guess this is a development of my 'annoying pet simulator idea'.
 
-### What I did ###
-[Added a  simple sprite sheet animation](###Sprite-Sheet)
+## My plan for the website:
+Here is my (mostly) concrete plan for my final project: 
+
+- User begins in a pet simulator game where the pet is hidden
+- The pets health and fullness decrease quickly making it difficult for the user to keep the pet well
+  - The pets responses to the user input are hostile
+- The 'game' is visually plain, it does not give the user clear instructions, and the user is not rewarded for their input
+  - Because there are no instructions I am assuming it will be very easy for the 
+
+
+
+## What I did:
+- [Added a  simple sprite sheet animation](##Sprite-Sheet)
+- [Created an animated background](##Background)
+- [Added a black box to my pet game](##Black-box)
+
+## Sprite Sheet
+At this point I wasn't sure 
+
+
 
   
 
