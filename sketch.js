@@ -653,7 +653,7 @@ class catch_pet_game{
 
     //adding to sprite clicked count if it has been drawn once already
     if(this.draw_sprite){
-      this.sprite_clicked += 1;
+     
     
     
   let frameWidth = sheet.height; 
@@ -667,9 +667,9 @@ class catch_pet_game{
   let target_area = 1.3
 
   // if mouse click on sprite...
-  if (d < (frameWidth)) {
+  if (d < (frameWidth * target_area)) {
     console.log("Pet caught!");
-
+   this.sprite_clicked += 1;
     this.petx = random(10, windowWidth - 10);
     this.pety = random(10, windowHeight - 10);
 
