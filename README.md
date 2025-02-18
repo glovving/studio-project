@@ -1063,5 +1063,15 @@ I won't go through every single one of them here but an example is:
 "your pet has enjoyed eating" -> "your pet ate reluctantly..."
 
 
+# Log 5:
+
+On the final day before the deadline I tried to debug my audio, after trying a few different file types and sizes nothing seemed to work, I didn't have time to keep working on it as I had to finish some of my written work, so I decided remove audio from the pet game segments and the end screen, and use the music I previously had in my pet game segment during the chase segment.
+I did this as I thought it was appropriate that the most vibrant segment should have the song.
+
+I wasn't completely happy with this but it was a compromise to removing the audio completely at this point.
+
+
+
+
 
 
