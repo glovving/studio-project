@@ -40,8 +40,9 @@ function preload(){
 
   //loading songs
   song1 = loadSound("Songs/glitchy_out.ogg");
-  song2 = loadSound("Songs/Water_level_out.ogg");
-  song3 = loadSound("Songs/water3_out.ogg");
+  //song2 = loadSound("Songs/Water_level_out.ogg");
+  song2 = loadSound("Songs/Water%20level.ogg");
+  song3 = loadSound("Songs/water33.ogg");
 
   
 }
@@ -57,6 +58,7 @@ function setup() {
   ypos = windowHeight/4;
   feedbutton = createButton("feed");
   feedbutton.size(40, 20);
+  feedbutton.style('font-size', (windowHeight / 20) * 0.5 + 'px');
   feedbutton.position(xpos, ypos);
 
   feedbutton.mouseClicked(() =>{
@@ -68,6 +70,7 @@ function setup() {
 
   playbutton = createButton('play');
   playbutton.size(windowWidth/10, windowHeight/20);
+  playbutton.style('font-size', (windowHeight / 20) * 0.5 + 'px');
 
   playbutton.position(xpos, ypos + feedbutton.height * 2);
 
@@ -89,7 +92,7 @@ function setup() {
   select_trick = createSelect();
 
   select_trick.size(windowWidth/10, windowHeight/20);
-  
+  select_trick.style('font-size', (windowHeight / 20) * 0.5 + 'px');
   select_trick.position(xpos, ypos + (feedbutton.height * 2) + (playbutton.height * 3));
 
   //array of tricks
@@ -109,7 +112,8 @@ function setup() {
    //okay button to start game
    okaybutton = createButton("okay");
    okaybutton.size(windowWidth/10, windowHeight/20);
-   okaybutton.position(windowWidth/4, windowHeight/2.5 + okaybutton.height);
+   okaybutton.position(windowWidth/4, windowHeight/2);
+   okaybutton.style('font-size', (windowHeight / 20) * 0.5 + 'px');
    okaybutton.mouseClicked(()=>{
     intro_flag = false;
    })
@@ -145,10 +149,7 @@ textSize(windowWidth/45);
 if(intro_flag){
   intro();
 }else{
-if(!song1.isPlaying()){
-  song1.setVolume(0.07);
-  song1.loop();
-}
+
   //hiding okay button
   okaybutton.hide();  
 
@@ -172,9 +173,10 @@ else{
   frameRate(20);
 
   //play song2 when bg is drawn
-  if(!song2.isPlaying()){
-    song2.setVolume(0.05);
-    song2.loop();
+  if(!song1.isPlaying()){
+    song1.setVolume(0.05);
+    song1.rate(1);
+    song1.play();
   }
 
 
@@ -204,7 +206,7 @@ else{
   mypet.draw_box();
 
   let status_text = `Energy: ${mypet.energy} Fullness: ${mypet.fullness} Strikes: ${mypet.strikes}`;
-  textSize(windowWidth/60);
+  textSize((windowHeight / 20) * 0.5);
   //moved trick text into coditional
   text('tricks:', xpos, ypos + (feedbutton.height * 2) + (playbutton.height * 2.5)); 
   textSize(windowWidth/50)
@@ -353,7 +355,7 @@ class pet{
 
   //when pet is taken 
   end(){
-    song1.stop();
+    
     playbutton.hide();
     feedbutton.hide();
     select_trick.hide();
@@ -665,7 +667,7 @@ class catch_pet_game{
   let target_area = 1.3
 
   // if mouse click on sprite...
-  if (d < (frameWidth * target_area)) {
+  if (d < (frameWidth)) {
     console.log("Pet caught!");
 
     this.petx = random(10, windowWidth - 10);
@@ -715,14 +717,10 @@ sprite_clicked_limit(){
 clear_sprite(){
   if(!this.sprite_clicked_limit()){
     this.draw_sprite = false;
-    song2.stop();
+    song1.stop();
     filter(GRAY);
     textAlign(CENTER);
     setTimeout(()=>{
-      if(!song3.isPlaying()){
-        song3.setVolume(0.05);
-        song3.loop();
-      }
       goodbye_screen(dead_pet, windowWidth/2, windowHeight/6);
     }, 1000);
     
