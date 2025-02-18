@@ -1,4 +1,9 @@
 # studio-project
+
+## Pet Simulator
+
+Link to completed work -> (https://glovving.github.io/studio-project/)
+
 ## Studio Project Log
 This is where I will be recording my progress/ experiments for my studio project
 
